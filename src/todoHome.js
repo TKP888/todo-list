@@ -26,7 +26,7 @@ const createTodoHomePage = () => {
 
     const newTaskButton = document.createElement('button');
     newTaskButton.classList.add('newTaskBtn');
-    newTaskButton.textContent = '+';
+    newTaskButton.textContent = 'Add Task +';
     newTaskButton.addEventListener('click', plusTask); // Added event listener
     pageContent.appendChild(newTaskButton);
 

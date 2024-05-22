@@ -1,0 +1,32 @@
+body {
+    background-color: blanchedalmond;
+    display: grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: 3fr;
+justify-content: center;}
+
+.newTaskForm {
+    border: none;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 3fr;
+    justify-content: center;
+    width: 500px;
+    border-radius: 15px;
+    margin-top: 10px;
+    background-color: aliceblue;
+    padding: 25px;
+}
+
+
+.div{
+    display: grid;
+}
+
+
+input,
+button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+}
