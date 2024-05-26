@@ -1,38 +1,77 @@
 body {
-    background-color: blanchedalmond;
-    /* display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    grid-template-rows: 2fr 2fr 2fr; */
-justify-content: center;}
+    background-color: #082f49;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#content{
+  display: flex;
+  align-content: space-between;
+}
+.note-content,
+.side-content{
+    margin: 20px 10px 20px 10px;
+    padding: 25px;  
+    background-color: #0c4a6e;
+    border-radius: 15px ;
+    width: 15vw;
+    min-height: 95vh;
+}
+
+
+.taskArea{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* padding: 50px;
+width: 1000px;
+height: 500px; */
+    /* background-color: aquamarine; */
+}
+
+.page-content{
+    margin: 20px 10px 20px 10px;
+   /* min-height: 100vh; */
+padding: 25px;
+ border: 1px solid black;
+ background-color: #0c4a6e;
+ border-radius: 15px;
+ width: 70vw;
+ min-height: 95vh;
+   align-items: center;
+   justify-content: center;
+}
 
 .newTaskForm {
     border: none;
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-template-rows: 3fr;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    width: 500px;
+    align-items: center;
+    align-content: space-around;
+    min-width: 55vw;
     border-radius: 15px;
     margin-top: 10px;
-    background-color: rgb(114, 140, 164);
+    background-color: #0369a1;
     padding: 25px;
+    border-left: 25px solid #be123c; /* Initially transparent */
+
 }
-
-
-
-
-div.page-content{
-     display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-template-rows: 2fr 2fr ;
-    align-items: center;
-    justify-content: center;
-}
-
+/* 
 .div{
+    margin: 20px 10px 20px 10px;
+} */
+/* .div{
     display: grid;
-}
+} */
 
+#description {
+    width: 250px;
+}
+::placeholder,
 select,
 input,
 button {
@@ -40,11 +79,15 @@ button {
     padding: 10px;
     border-radius: 15px;
     border: 0px solid;
+    background-color: #696969;
+    color: white;
+    
 }
 
 
 #sidebar {
 width: 100px;
+background-color: aqua;
 /* height: 100vh; */
 
 }

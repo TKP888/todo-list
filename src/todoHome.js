@@ -1,3 +1,4 @@
+import createTaskCard from './plusTask';
 import plusTask from './plusTask';
 
 const createTodoHomePage = () => {
@@ -7,50 +8,45 @@ const createTodoHomePage = () => {
         return;
     }
 
-    const pageContent = document.createElement('div');
-    pageContent.classList.add('page-content');
+    const sideBar = document.createElement('div');
+    sideBar.classList.add('side-content');
 
     const imageIcon = document.createElement('img');
     imageIcon.src = '../image/list-box-outline.svg';
-    imageIcon.height = 50; // Fixed the incorrect attribute usage
-    imageIcon.width = 50;  // Fixed the incorrect attribute usage
-    pageContent.appendChild(imageIcon);
+    imageIcon.height = 50;
+    imageIcon.width = 50;
+    sideBar.appendChild(imageIcon);
+
+    const newProjButton = document.createElement('button');
+    newProjButton.classList.add('newTaskBtn');
+    newProjButton.textContent = 'Add Project +';
+    newProjButton.addEventListener('click', plusTask);
+    sideBar.appendChild(newProjButton);
+
+    const pageContent = document.createElement('div');
+    pageContent.classList.add('page-content');
 
     const headline = document.createElement('h1');
     headline.textContent = 'Welcome To DoList';
     pageContent.appendChild(headline);
 
-    const intro = document.createElement('p');
-    intro.textContent = 'Please create your tasks and enjoy being productive';
-    pageContent.appendChild(intro);
-
-    const sidebar = document.createElement('div');
-    sidebar.id = 'sidebar'
-    sidebar.textContent = 'Projects';
-    pageContent.appendChild(sidebar);
-
-
-
-    const newProjButton = document.createElement('button');
-    newProjButton.classList.add('newTaskBtn');
-    newProjButton.textContent = 'Add Project +';
-    newProjButton.addEventListener('click', plusTask); // Added event listener
-    pageContent.appendChild(newProjButton);
-
-
-
     const newTaskButton = document.createElement('button');
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.textContent = 'Add Task +';
-    newTaskButton.addEventListener('click', plusTask); // Added event listener
+    newTaskButton.addEventListener('click', createTaskCard);
     pageContent.appendChild(newTaskButton);
 
-    // Uncomment and modify this block if needed
-    // const taskList = document.createElement('div');
-    // taskList.classList.add('taskList');
-    // pageContent.appendChild(taskList);
+    const taskArea = document.createElement('div');
+    taskArea.classList.add('taskArea');
+    taskArea.id = 'taskArea'; // Add an id for easier selection
+    pageContent.appendChild(taskArea);
 
+    const noteBar = document.createElement('div');
+    noteBar.classList.add('note-content');
+
+    content.appendChild(sideBar);
     content.appendChild(pageContent);
+    content.appendChild(noteBar);
 };
 
 export default createTodoHomePage;
