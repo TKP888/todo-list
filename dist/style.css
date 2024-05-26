@@ -1,8 +1,8 @@
 body {
     background-color: blanchedalmond;
-    display: grid;
-    grid-template-columns: 2fr;
-    grid-template-rows: 3fr;
+    /* display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-template-rows: 2fr 2fr 2fr; */
 justify-content: center;}
 
 .newTaskForm {
@@ -14,19 +14,37 @@ justify-content: center;}
     width: 500px;
     border-radius: 15px;
     margin-top: 10px;
-    background-color: aliceblue;
+    background-color: rgb(114, 140, 164);
     padding: 25px;
 }
 
+
+
+
+div.page-content{
+     display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 2fr 2fr ;
+    align-items: center;
+    justify-content: center;
+}
 
 .div{
     display: grid;
 }
 
-
+select,
 input,
 button {
     margin: 5px;
     padding: 10px;
     border-radius: 15px;
+    border: 0px solid;
+}
+
+
+#sidebar {
+width: 100px;
+/* height: 100vh; */
+
 }

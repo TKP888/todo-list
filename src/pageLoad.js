@@ -3,7 +3,7 @@ import createTodoHomePage from './todoHome';
 
 function initialLoad() {
 	createTodoHomePage();
-    createTaskCard();
+    // createTaskCard();
 }
 
 export default initialLoad;

@@ -24,6 +24,21 @@ const createTodoHomePage = () => {
     intro.textContent = 'Please create your tasks and enjoy being productive';
     pageContent.appendChild(intro);
 
+    const sidebar = document.createElement('div');
+    sidebar.id = 'sidebar'
+    sidebar.textContent = 'Projects';
+    pageContent.appendChild(sidebar);
+
+
+
+    const newProjButton = document.createElement('button');
+    newProjButton.classList.add('newTaskBtn');
+    newProjButton.textContent = 'Add Project +';
+    newProjButton.addEventListener('click', plusTask); // Added event listener
+    pageContent.appendChild(newProjButton);
+
+
+
     const newTaskButton = document.createElement('button');
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.textContent = 'Add Task +';
