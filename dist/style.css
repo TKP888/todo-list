@@ -33,6 +33,7 @@ height: 500px; */
 }
 
 .page-content{
+    /* display: grid; */
     margin: 20px 10px 20px 10px;
    /* min-height: 100vh; */
 padding: 25px;
@@ -53,11 +54,13 @@ padding: 25px;
     align-items: center;
     align-content: space-around;
     min-width: 55vw;
+    /* max-height: 40px; */
     border-radius: 15px;
     margin-top: 10px;
     background-color: #0369a1;
-    padding: 25px;
+    padding: 15px;
     border-left: 25px solid #be123c; /* Initially transparent */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 
 }
 /* 
@@ -75,7 +78,8 @@ padding: 25px;
 select,
 input,
 button {
-    margin: 5px;
+   
+    margin-right: 10px;
     padding: 10px;
     border-radius: 15px;
     border: 0px solid;
@@ -84,10 +88,30 @@ button {
     
 }
 
+#newTaskBtn,
+#completeBtn,
+#removeBtn {
+    margin-right: 10px;
+    filter: invert(100%);
+}
+
+#newTaskBtn:hover,
+#completeBtn:hover,
+#removeBtn:hover {
+    margin-right: 10px;
+    filter: invert(75%);
+    transition-duration: 0.2s;
+}
 
 #sidebar {
 width: 100px;
 background-color: aqua;
 /* height: 100vh; */
 
+}
+
+
+.completed {
+    background-color: grey !important; /* Greys out the card */
+    opacity: 0.5; /* Reduces opacity by 50% */
 }

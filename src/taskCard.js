@@ -15,7 +15,6 @@ const createTaskCard = () => {
     description.placeholder = 'Description';
     form.appendChild(description);
 
-
     const prioritySelect = document.createElement('select');
     prioritySelect.id = 'prioritySelect';
 
@@ -40,6 +39,7 @@ const createTaskCard = () => {
                 break;
             default:
                 form.style.borderLeftColor = '#be123c';
+            
         }
     });
 
@@ -51,13 +51,19 @@ const createTaskCard = () => {
     endDate.placeholder = 'Enter Due Date';
     form.appendChild(endDate);
 
-    const complete = document.createElement('input');
-    complete.type = 'checkbox';
-    complete.id = 'complete';
-    const completeLabel = document.createElement('label');
-    completeLabel.textContent = 'Complete: ';
-    completeLabel.appendChild(complete);
-    form.appendChild(completeLabel);
+    const complete = document.createElement('img');
+    complete.src = '../image/check.svg'
+    complete.type = 'button';
+    complete.height = 40;
+    complete.width = 40;
+    complete.textContent = 'Complete';
+    complete.id = 'completeBtn';
+    form.appendChild(complete);
+
+    // Event listener for the complete button
+    complete.addEventListener('click', () => {
+        form.classList.toggle('completed');
+    });
 
     const remove = document.createElement('img');
     remove.src = '../image/close-circle-outline.svg'

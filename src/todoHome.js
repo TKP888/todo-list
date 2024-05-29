@@ -27,12 +27,17 @@ const createTodoHomePage = () => {
     pageContent.classList.add('page-content');
 
     const headline = document.createElement('h1');
-    headline.textContent = 'Welcome To DoList';
+    headline.textContent = 'Here are your tasks for today:';
     pageContent.appendChild(headline);
 
-    const newTaskButton = document.createElement('button');
+    const newTaskButton = document.createElement('img');
+    newTaskButton.src = '../image/plus-box.svg'
+    newTaskButton.type = 'button';
+    newTaskButton.height = 40;
+    newTaskButton.width = 40;
     newTaskButton.classList.add('newTaskBtn');
-    newTaskButton.textContent = 'Add Task +';
+    // newTaskButton.textContent = 'Add Task +';
+    newTaskButton.id = 'newTaskBtn';
     newTaskButton.addEventListener('click', createTaskCard);
     pageContent.appendChild(newTaskButton);
 
