@@ -1,5 +1,4 @@
+import pageLoad from './pageLoad';
 
-import pageLoad from './pageLoad'
-
-//load page
+// Load page
 pageLoad();

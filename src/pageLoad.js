@@ -1,10 +1,8 @@
-import createTaskCard from './taskCard';
 import createTodoHomePage from './todoHome';
-import createTodoSide from './todoSide';
 
+// Initial load
 function initialLoad() {
-	createTodoHomePage();
-    // createTodoSide();
+    createTodoHomePage();
 }
 
 export default initialLoad;

@@ -19,6 +19,7 @@ body {
     border-radius: 15px ;
     width: 15vw;
     min-height: 95vh;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 
@@ -37,13 +38,14 @@ height: 500px; */
     margin: 20px 10px 20px 10px;
    /* min-height: 100vh; */
 padding: 25px;
- border: 1px solid black;
+ border: none;
  background-color: #0c4a6e;
  border-radius: 15px;
  width: 70vw;
  min-height: 95vh;
    align-items: center;
    justify-content: center;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .newTaskForm {
@@ -55,14 +57,30 @@ padding: 25px;
     align-content: space-around;
     min-width: 55vw;
     /* max-height: 40px; */
-    border-radius: 15px;
+    border-radius: 25px;
     margin-top: 10px;
     background-color: #0369a1;
     padding: 15px;
     border-left: 25px solid #be123c; /* Initially transparent */
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 
 }
+
+
+.newTaskForm.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+}
+
+.taskArea .placeholder {
+    height: 80px; /* Adjust according to your task card height */
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+    margin-bottom: 10px;
+}
+
+
 /* 
 .div{
     margin: 20px 10px 20px 10px;
