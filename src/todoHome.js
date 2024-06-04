@@ -1,6 +1,8 @@
+// main.js or createTodoHomePage.js
+
 import { createTaskCard, saveFormsToLocalStorage } from './taskCard';
 import { plusTask, loadTasksFromLocalStorage, renderTasks } from './plusTask';
-// import  from './taskManager';
+import { createNoteCard } from './noteCard';
 
 const createTodoHomePage = () => {
     const content = document.querySelector('#content');
@@ -9,6 +11,7 @@ const createTodoHomePage = () => {
         return;
     }
 
+    // Side Bar Elements
     const sideBar = document.createElement('div');
     sideBar.classList.add('side-content');
 
@@ -22,8 +25,10 @@ const createTodoHomePage = () => {
     newProjButton.classList.add('newTaskBtn');
     newProjButton.textContent = 'Add Project +';
     newProjButton.addEventListener('click', plusTask);
+    newProjButton.addEventListener('click', saveFormsToLocalStorage);
     sideBar.appendChild(newProjButton);
 
+    // Page Content Elements
     const pageContent = document.createElement('div');
     pageContent.classList.add('page-content');
 
@@ -39,6 +44,7 @@ const createTodoHomePage = () => {
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.id = 'newTaskBtn';
     newTaskButton.addEventListener('click', () => createTaskCard());
+    newTaskButton.addEventListener('click', saveFormsToLocalStorage);
     pageContent.appendChild(newTaskButton);
 
     const taskArea = document.createElement('div');
@@ -71,7 +77,7 @@ const createTodoHomePage = () => {
         }
     });
 
-    taskArea.addEventListener('dragleave', (event) => {
+    taskArea.addEventListener('dragleave', () => {
         if (placeholder) {
             placeholder.remove();
         }
@@ -90,9 +96,73 @@ const createTodoHomePage = () => {
 
     pageContent.appendChild(taskArea);
 
+    // Note Bar Elements
     const noteBar = document.createElement('div');
     noteBar.classList.add('note-content');
 
+    const noteHeadline = document.createElement('h1');
+    noteHeadline.textContent = 'Take Some Notes:';
+    noteBar.appendChild(noteHeadline);
+
+    const newNoteButton = document.createElement('img');
+    newNoteButton.src = '../image/plus-box.svg';
+    newNoteButton.type = 'button';
+    newNoteButton.height = 40;
+    newNoteButton.width = 40;
+    newNoteButton.classList.add('newNoteBtn');
+    newNoteButton.id = 'newNoteBtn';
+    newNoteButton.addEventListener('click', () => createNoteCard());
+    newNoteButton.addEventListener('click', saveFormsToLocalStorage);
+    noteBar.appendChild(newNoteButton);
+
+    const noteArea = document.createElement('div');
+    noteArea.classList.add('noteArea');
+    noteArea.id = 'noteArea';
+
+    noteArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        const afterElement = getDragAfterElement(noteArea, event.clientY);
+        const dragging = document.querySelector('.dragging');
+        if (afterElement == null) {
+            noteArea.appendChild(dragging);
+        } else {
+            noteArea.insertBefore(dragging, afterElement);
+        }
+    });
+
+    noteArea.addEventListener('dragenter', (event) => {
+        if (!placeholder) {
+            placeholder = document.createElement('div');
+            placeholder.classList.add('placeholder');
+        }
+        const afterElement = getDragAfterElement(noteArea, event.clientY);
+        if (afterElement == null) {
+            noteArea.appendChild(placeholder);
+        } else {
+            noteArea.insertBefore(placeholder, afterElement);
+        }
+    });
+
+    noteArea.addEventListener('dragleave', () => {
+        if (placeholder) {
+            placeholder.remove();
+        }
+    });
+
+    noteArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const dragging = document.querySelector('.dragging');
+        if (dragging) {
+            noteArea.insertBefore(dragging, placeholder);
+        }
+        if (placeholder) {
+            placeholder.remove();
+        }
+    });
+
+    noteBar.appendChild(noteArea);
+
+    // Append side bar, page content, and note bar to content
     content.appendChild(sideBar);
     content.appendChild(pageContent);
     content.appendChild(noteBar);

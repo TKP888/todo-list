@@ -1,9 +1,10 @@
-import { createTaskCard } from './taskCard';
+import { createTaskCard, saveFormsToLocalStorage } from './taskCard';
 
 class Task {
-    constructor(title, description, date, complete) {
+    constructor(title, description, priorities, date, complete) {
         this.title = title;
         this.description = description;
+        this.priorities = priorities;
         this.date = date;
         this.complete = complete;
     }
@@ -16,6 +17,7 @@ class Task {
         return {
             title: this.title,
             description: this.description,
+            priorities: this.priorities,
             date: this.date,
             complete: this.complete
         };
@@ -32,7 +34,7 @@ function loadTasksFromLocalStorage() {
     const tasksJSON = localStorage.getItem('myTaskLibrary');
     if (tasksJSON) {
         const tasksArray = JSON.parse(tasksJSON);
-        myTaskLibrary = tasksArray.map(task => new Task(task.title, task.description, task.date, task.complete));
+        myTaskLibrary = tasksArray.map(task => new Task(task.title, task.description, task.priorities, task.date, task.complete));
     }
 }
 
@@ -48,8 +50,8 @@ function removeTask(index) {
     renderTasks();
 }
 
-function addTaskToLibrary(title, description, date, complete) {
-    let newTask = new Task(title, description, date, complete);
+function addTaskToLibrary(title, description, priorities, date, complete) {
+    let newTask = new Task(title, description, priorities, date, complete);
     myTaskLibrary.push(newTask);
     saveTasksToLocalStorage();
     renderTasks();
@@ -64,7 +66,7 @@ function renderTasks() {
     libraryEl.innerHTML = "";
     for (let i = 0; i < myTaskLibrary.length; i++) {
         let task = myTaskLibrary[i];
-        createTaskCard(task.title, task.description, task.date, task.complete);
+        createTaskCard(task.title, task.description, task.priorities, task.date, task.complete);
     }
 }
 
