@@ -3,6 +3,7 @@
 import { createTaskCard, saveFormsToLocalStorage } from './taskCard';
 import { plusTask, loadTasksFromLocalStorage, renderTasks } from './plusTask';
 import { createNoteCard } from './noteCard';
+import { createProjCard } from './projCard';
 
 const createTodoHomePage = () => {
     const content = document.querySelector('#content');
@@ -15,32 +16,87 @@ const createTodoHomePage = () => {
     const sideBar = document.createElement('div');
     sideBar.classList.add('side-content');
 
-    const imageIcon = document.createElement('img');
-    imageIcon.src = '../image/list-box-outline.svg';
-    imageIcon.height = 50;
-    imageIcon.width = 50;
-    sideBar.appendChild(imageIcon);
+    const sideHeadline = document.createElement('h3');
+    sideHeadline.textContent = 'Projects:';
+    sideBar.appendChild(sideHeadline);
 
-    const newProjButton = document.createElement('button');
-    newProjButton.classList.add('newTaskBtn');
-    newProjButton.textContent = 'Add Project +';
-    newProjButton.addEventListener('click', plusTask);
+    const newProjButton = document.createElement('img');
+    newProjButton.src = '../image/plus-box.svg';
+    newProjButton.type = 'button';
+    newProjButton.height = 30;
+    newProjButton.width = 30;
+    newProjButton.classList.add('newProjBtn');
+    newProjButton.id = 'newProjBtn';
+    newProjButton.addEventListener('click', () => createProjCard());
     newProjButton.addEventListener('click', saveFormsToLocalStorage);
     sideBar.appendChild(newProjButton);
+
+
+    const projArea = document.createElement('div');
+    projArea.classList.add('projArea');
+    projArea.id = 'projArea';
+
+    projArea.addEventListener('dragover', (event) => {
+        event.preventDefault();
+        const afterElement = getDragAfterElement(projArea, event.clientY);
+        const dragging = document.querySelector('.dragging');
+        if (afterElement == null) {
+            projArea.appendChild(dragging);
+        } else {
+            projArea.insertBefore(dragging, afterElement);
+        }
+    });
+
+    projArea.addEventListener('dragenter', (event) => {
+        if (!placeholder) {
+            placeholder = document.createElement('div');
+            placeholder.classList.add('placeholder');
+        }
+        const afterElement = getDragAfterElement(projArea, event.clientY);
+        if (afterElement == null) {
+            projArea.appendChild(placeholder);
+        } else {
+            projArea.insertBefore(placeholder, afterElement);
+        }
+    });
+
+    projArea.addEventListener('dragleave', () => {
+        if (placeholder) {
+            placeholder.remove();
+        }
+    });
+
+    projArea.addEventListener('drop', (event) => {
+        event.preventDefault();
+        const dragging = document.querySelector('.dragging');
+        if (dragging) {
+            projArea.insertBefore(dragging, placeholder);
+        }
+        if (placeholder) {
+            placeholder.remove();
+        }
+    });
+
+    sideBar.appendChild(projArea);
+
+
+
+
+
 
     // Page Content Elements
     const pageContent = document.createElement('div');
     pageContent.classList.add('page-content');
 
-    const headline = document.createElement('h1');
+    const headline = document.createElement('h3');
     headline.textContent = 'Here are your tasks for today:';
     pageContent.appendChild(headline);
 
     const newTaskButton = document.createElement('img');
     newTaskButton.src = '../image/plus-box.svg';
     newTaskButton.type = 'button';
-    newTaskButton.height = 40;
-    newTaskButton.width = 40;
+    newTaskButton.height = 30;
+    newTaskButton.width = 30;
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.id = 'newTaskBtn';
     newTaskButton.addEventListener('click', () => createTaskCard());
@@ -50,6 +106,11 @@ const createTodoHomePage = () => {
     const taskArea = document.createElement('div');
     taskArea.classList.add('taskArea');
     taskArea.id = 'taskArea';
+
+
+
+
+
 
     let placeholder = null;
 
@@ -100,15 +161,15 @@ const createTodoHomePage = () => {
     const noteBar = document.createElement('div');
     noteBar.classList.add('note-content');
 
-    const noteHeadline = document.createElement('h1');
+    const noteHeadline = document.createElement('h3');
     noteHeadline.textContent = 'Take Some Notes:';
     noteBar.appendChild(noteHeadline);
 
     const newNoteButton = document.createElement('img');
     newNoteButton.src = '../image/plus-box.svg';
     newNoteButton.type = 'button';
-    newNoteButton.height = 40;
-    newNoteButton.width = 40;
+    newNoteButton.height = 30;
+    newNoteButton.width = 30;
     newNoteButton.classList.add('newNoteBtn');
     newNoteButton.id = 'newNoteBtn';
     newNoteButton.addEventListener('click', () => createNoteCard());

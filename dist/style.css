@@ -18,6 +18,7 @@ body {
     background-color: #0c4a6e;
     border-radius: 15px ;
     width: 15vw;
+    min-width: 150px;
     min-height: 95vh;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
@@ -42,6 +43,7 @@ padding: 25px;
  background-color: #0c4a6e;
  border-radius: 15px;
  width: 70vw;
+ min-width: 200px;
  min-height: 95vh;
    align-items: center;
    justify-content: center;
@@ -86,6 +88,25 @@ padding: 25px;
 
 }
 
+
+.newProjForm {
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+
+    /* max-height: 40px; */
+    border-radius: 25px;
+    margin-top: 10px;
+    background-color: #0369a1;
+    padding: 15px;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+}
+.newProjForm.dragging,
 .newNoteForm.dragging,
 .newTaskForm.dragging {
     opacity: 0.5;
@@ -99,15 +120,6 @@ padding: 25px;
     margin-bottom: 10px;
 }
 
-
-/* 
-.div{
-    margin: 20px 10px 20px 10px;
-} */
-/* .div{
-    display: grid;
-} */
-
 #description {
     width: 250px;
 }
@@ -115,7 +127,7 @@ padding: 25px;
 select,
 input,
 button {
-   
+   margin-left: 10px;
     margin-right: 10px;
     padding: 10px;
     border-radius: 15px;
@@ -124,24 +136,32 @@ button {
     color: white;
     
 }
+#newProjBtn,
 #newNoteBtn,
 #newTaskBtn,
 #completeBtn,
-#removeBtn {
+#removeBtn,
+#removeProjBtn,
+#removeNoteBtn {
     margin-right: 10px;
     filter: invert(100%);
 }
 
-
+#removeProjBtn,
 #removeNoteBtn {
     margin-top: 10px;
-    filter: invert(100%);
 }
 
+
+
+
+#newProjBtn:hover,
 #newNoteBtn:hover,
 #newTaskBtn:hover,
 #completeBtn:hover,
-#removeBtn:hover {
+#removeBtn:hover,
+#removeNoteBtn:hover,
+#removeProjBtn:hover {
     margin-right: 10px;
     filter: invert(75%);
     transition-duration: 0.2s;
@@ -149,6 +169,7 @@ button {
 
 #sidebar {
 width: 100px;
+
 background-color: aqua;
 /* height: 100vh; */
 
@@ -158,4 +179,9 @@ background-color: aqua;
 .completed {
     background-color: grey !important; /* Greys out the card */
     opacity: 0.5; /* Reduces opacity by 50% */
+}
+
+textarea {
+    border-radius: 15px;
+    padding: 10px;
 }
