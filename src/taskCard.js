@@ -1,6 +1,6 @@
 // taskCard.js
 
-import { addTaskToLibrary, saveFormsToLocalStorage } from './plusTask';
+import { addTaskToLibrary } from './plusTask';
 
 // Function to create a task card
 const createTaskCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
@@ -91,7 +91,7 @@ const createTaskCard = (titleValue = '', descriptionValue = '', dateValue = '', 
     // Toggle complete status and save to local storage on click
     complete.addEventListener('click', () => {
         form.classList.toggle('completed');
-        saveFormsToLocalStorage();
+        // saveFormsToLocalStorage();
     });
 
     // Create and append the remove button
@@ -110,7 +110,7 @@ const createTaskCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         const confirmed = confirm('Are you sure you want to remove this task?');
         if (confirmed) {
             form.remove();
-            saveFormsToLocalStorage();
+            // saveFormsToLocalStorage();
         }
     });
 
@@ -127,7 +127,7 @@ const createTaskCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         addTaskToLibrary(titleValue, descriptionValue, dateValue, completeValue);
     }
 
-    saveFormsToLocalStorage();
+    // saveFormsToLocalStorage();
 };
 
 export { createTaskCard };

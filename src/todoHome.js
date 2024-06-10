@@ -1,7 +1,7 @@
 // main.js or createTodoHomePage.js
 
-import { createTaskCard, saveFormsToLocalStorage } from './taskCard';
-import { plusTask, loadTasksFromLocalStorage, renderTasks } from './plusTask';
+import { createTaskCard } from './taskCard';
+import { plusTask, renderTasks } from './plusTask';
 import { createNoteCard } from './noteCard';
 import { createProjCard } from './projCard';
 
@@ -28,7 +28,7 @@ const createTodoHomePage = () => {
     newProjButton.classList.add('newProjBtn');
     newProjButton.id = 'newProjBtn';
     newProjButton.addEventListener('click', () => createProjCard());
-    newProjButton.addEventListener('click', saveFormsToLocalStorage);
+    // newProjButton.addEventListener('click', saveFormsToLocalStorage);
     sideBar.appendChild(newProjButton);
 
 
@@ -100,7 +100,7 @@ const createTodoHomePage = () => {
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.id = 'newTaskBtn';
     newTaskButton.addEventListener('click', () => createTaskCard());
-    newTaskButton.addEventListener('click', saveFormsToLocalStorage);
+    // newTaskButton.addEventListener('click', saveFormsToLocalStorage);
     pageContent.appendChild(newTaskButton);
 
     const taskArea = document.createElement('div');
@@ -157,6 +157,11 @@ const createTodoHomePage = () => {
 
     pageContent.appendChild(taskArea);
 
+
+
+
+
+
     // Note Bar Elements
     const noteBar = document.createElement('div');
     noteBar.classList.add('note-content');
@@ -165,6 +170,7 @@ const createTodoHomePage = () => {
     noteHeadline.textContent = 'Take Some Notes:';
     noteBar.appendChild(noteHeadline);
 
+    
     const newNoteButton = document.createElement('img');
     newNoteButton.src = '../image/plus-box.svg';
     newNoteButton.type = 'button';
@@ -173,7 +179,7 @@ const createTodoHomePage = () => {
     newNoteButton.classList.add('newNoteBtn');
     newNoteButton.id = 'newNoteBtn';
     newNoteButton.addEventListener('click', () => createNoteCard());
-    newNoteButton.addEventListener('click', saveFormsToLocalStorage);
+    // newNoteButton.addEventListener('click', saveFormsToLocalStorage);
     noteBar.appendChild(newNoteButton);
 
     const noteArea = document.createElement('div');
@@ -223,13 +229,17 @@ const createTodoHomePage = () => {
 
     noteBar.appendChild(noteArea);
 
+
+
+
+
     // Append side bar, page content, and note bar to content
     content.appendChild(sideBar);
     content.appendChild(pageContent);
     content.appendChild(noteBar);
 
-    // Load tasks and forms from local storage
-    loadTasksFromLocalStorage();
+    //  tasks and forms from local storage
+   
     renderTasks();
 };
 

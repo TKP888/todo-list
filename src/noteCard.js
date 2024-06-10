@@ -1,6 +1,6 @@
 // taskCard.js
 
-import { addTaskToLibrary, saveTasksToLocalStorage } from './plusTask';
+import { addTaskToLibrary } from './plusTask';
 
 const createNoteCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
     const form = document.createElement('form');
@@ -50,7 +50,7 @@ title.cols = 24;
         const confirmed = confirm('Are you sure you want to remove this note?');
         if (confirmed) {
             form.remove();
-            saveFormsToLocalStorage();
+            // saveFormsToLocalStorage();
         }
     });
 
@@ -66,7 +66,9 @@ title.cols = 24;
         addTaskToLibrary(titleValue, descriptionValue, dateValue, completeValue);
     }
 
-    saveFormsToLocalStorage();
+    // saveFormsToLocalStorage();
 };
+
+
 
 export { createNoteCard };

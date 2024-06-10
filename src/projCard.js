@@ -1,6 +1,17 @@
-// taskCard.js
+import { addTaskToLibrary, renderTasks } from './plusTask';
 
-import { addTaskToLibrary, saveTasksToLocalStorage } from './plusTask';
+// Function to populate note area
+const populateNoteArea = (titleValue) => {
+    const noteArea = document.getElementById('noteArea');
+    if (noteArea) {
+        noteArea.innerHTML = '';
+        const note = document.createElement('div');
+        // note.textContent = `Notes for ${titleValue}`;
+        noteArea.appendChild(note);
+    } else {
+        console.error("Element with id 'noteArea' not found.");
+    }
+};
 
 const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
     const form = document.createElement('form');
@@ -20,16 +31,15 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         form.classList.remove('dragging');
     });
 
+    form.addEventListener('click', () => {
+        populateTaskArea(titleValue);
+        populateNoteArea(titleValue);
+    });
+
     const title = document.createElement('input');
-    // Remove the incorrect type assignment
-    // title.type = 'text';
     title.id = 'title';
-// title.rows = 7;
-// title.cols = 24;
     title.value = titleValue;
     form.appendChild(title);
-
-
 
     const remove = document.createElement('img');
     remove.src = '../image/close-circle-outline.svg';
@@ -45,7 +55,7 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         const confirmed = confirm('Are you sure you want to remove this project?');
         if (confirmed) {
             form.remove();
-            saveFormsToLocalStorage();
+            // saveFormsToLocalStorage();
         }
     });
 
@@ -56,12 +66,12 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         console.error("Element with id 'projArea' not found.");
     }
 
-    // Add the task to the library
-    if (titleValue !== '' || descriptionValue !== '' || dateValue !== '') {
-        addTaskToLibrary(titleValue, descriptionValue, dateValue, completeValue);
-    }
+    // saveFormsToLocalStorage();
+};
 
-    saveFormsToLocalStorage();
+const populateTaskArea = (titleValue) => {
+    renderTasks(titleValue);
 };
 
 export { createProjCard };
+
