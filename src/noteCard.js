@@ -1,5 +1,6 @@
-// taskCard.js
+// noteCard.js
 
+import { saveNotesToLocalStorage } from './saveLoad';
 import { addTaskToLibrary } from './plusTask';
 
 const createNoteCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
@@ -21,27 +22,17 @@ const createNoteCard = (titleValue = '', descriptionValue = '', dateValue = '', 
     });
 
     const title = document.createElement('textarea');
-    // Remove the incorrect type assignment
-    // title.type = 'text';
     title.id = 'title';
-title.rows = 7;
-title.cols = 24;
+    title.rows = 7;
+    title.cols = 24;
     title.value = titleValue;
     form.appendChild(title);
-
-    // const description = document.createElement('input');
-    // description.type = 'text';
-    // description.id = 'description';
-    // description.placeholder = 'Description';
-    // description.value = descriptionValue;
-    // form.appendChild(description);
 
     const remove = document.createElement('img');
     remove.src = '../image/close-circle-outline.svg';
     remove.type = 'button';
     remove.height = 20;
     remove.width = 20;
-    remove.textContent = 'Remove';
     remove.id = 'removeNoteBtn';
     form.appendChild(remove);
 
@@ -50,7 +41,7 @@ title.cols = 24;
         const confirmed = confirm('Are you sure you want to remove this note?');
         if (confirmed) {
             form.remove();
-            // saveFormsToLocalStorage();
+            saveNotesToLocalStorage();
         }
     });
 
@@ -61,14 +52,12 @@ title.cols = 24;
         console.error("Element with id 'noteArea' not found.");
     }
 
-    // Add the task to the library
+    // Add the task to the library if note details are provided
     if (titleValue !== '' || descriptionValue !== '' || dateValue !== '') {
         addTaskToLibrary(titleValue, descriptionValue, dateValue, completeValue);
     }
 
-    // saveFormsToLocalStorage();
+    saveNotesToLocalStorage();
 };
-
-
 
 export { createNoteCard };

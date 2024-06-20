@@ -1,6 +1,7 @@
 import { createTaskCard } from './taskCard';
+import { saveTasksToLocalStorage, loadTasksFromLocalStorage } from './saveLoad';
 
-
+// Task class definition
 class Task {
     constructor(projectTitle, title, description, priorities, date, complete) {
         this.projectTitle = projectTitle;
@@ -27,37 +28,25 @@ class Task {
     }
 }
 
-let myTaskLibrary = [];
-
-// function saveTasksToLocalStorage() {
-//     localStorage.setItem('myTaskLibrary', JSON.stringify(myTaskLibrary));
-// }
-
-// function loadTasksFromLocalStorage() {
-//     const tasksJSON = localStorage.getItem('myTaskLibrary');
-//     if (tasksJSON) {
-//         const tasksArray = JSON.parse(tasksJSON);
-//         myTaskLibrary = tasksArray.map(task => new Task(task.projectTitle, task.title, task.description, task.priorities, task.date, task.complete));
-//     }
-// }
-
+// Initialize myTaskLibrary from local storage
+let myTaskLibrary = loadTasksFromLocalStorage();
 
 function toggleComplete(index) {
     myTaskLibrary[index].toggleComplete();
-    saveTasksToLocalStorage();
+    saveTasksToLocalStorage(myTaskLibrary);
     renderTasks();
 }
 
 function removeTask(index) {
     myTaskLibrary.splice(index, 1);
-    saveTasksToLocalStorage();
+    saveTasksToLocalStorage(myTaskLibrary);
     renderTasks();
 }
 
 function addTaskToLibrary(projectTitle, title, description, priorities, date, complete) {
     let newTask = new Task(projectTitle, title, description, priorities, date, complete);
     myTaskLibrary.push(newTask);
-    saveTasksToLocalStorage();
+    saveTasksToLocalStorage(myTaskLibrary);
     renderTasks(projectTitle);
 }
 
@@ -70,9 +59,8 @@ function renderTasks(projectTitle) {
     libraryEl.innerHTML = "";
 
     myTaskLibrary.filter(task => task.projectTitle === projectTitle).forEach(task => {
-        createTaskCard(task.title, task.description, task.priorities, task.date, task.complete);
+        createTaskCard(task.title, task.description, task.date, task.complete);
     });
 }
 
-export { addTaskToLibrary, toggleComplete, removeTask, renderTasks };
-
+export { myTaskLibrary, addTaskToLibrary, toggleComplete, removeTask, renderTasks };

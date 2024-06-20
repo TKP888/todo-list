@@ -1,9 +1,8 @@
-// main.js or createTodoHomePage.js
-
 import { createTaskCard } from './taskCard';
-import { plusTask, renderTasks } from './plusTask';
+import { renderTasks, addTaskToLibrary, myTaskLibrary } from './plusTask';
 import { createNoteCard } from './noteCard';
 import { createProjCard } from './projCard';
+import { loadTasksFromLocalStorage, saveTasksToLocalStorage, loadProjectsFromLocalStorage, saveProjectsToLocalStorage, loadNotesFromLocalStorage, saveNotesToLocalStorage } from './saveLoad';
 
 const createTodoHomePage = () => {
     const content = document.querySelector('#content');
@@ -27,62 +26,16 @@ const createTodoHomePage = () => {
     newProjButton.width = 30;
     newProjButton.classList.add('newProjBtn');
     newProjButton.id = 'newProjBtn';
-    newProjButton.addEventListener('click', () => createProjCard());
-    // newProjButton.addEventListener('click', saveFormsToLocalStorage);
+    newProjButton.addEventListener('click', () => {
+        createProjCard();
+        saveProjectsToLocalStorage();
+    });
     sideBar.appendChild(newProjButton);
-
 
     const projArea = document.createElement('div');
     projArea.classList.add('projArea');
     projArea.id = 'projArea';
-
-    projArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        const afterElement = getDragAfterElement(projArea, event.clientY);
-        const dragging = document.querySelector('.dragging');
-        if (afterElement == null) {
-            projArea.appendChild(dragging);
-        } else {
-            projArea.insertBefore(dragging, afterElement);
-        }
-    });
-
-    projArea.addEventListener('dragenter', (event) => {
-        if (!placeholder) {
-            placeholder = document.createElement('div');
-            placeholder.classList.add('placeholder');
-        }
-        const afterElement = getDragAfterElement(projArea, event.clientY);
-        if (afterElement == null) {
-            projArea.appendChild(placeholder);
-        } else {
-            projArea.insertBefore(placeholder, afterElement);
-        }
-    });
-
-    projArea.addEventListener('dragleave', () => {
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
-    projArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const dragging = document.querySelector('.dragging');
-        if (dragging) {
-            projArea.insertBefore(dragging, placeholder);
-        }
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
     sideBar.appendChild(projArea);
-
-
-
-
-
 
     // Page Content Elements
     const pageContent = document.createElement('div');
@@ -99,68 +52,16 @@ const createTodoHomePage = () => {
     newTaskButton.width = 30;
     newTaskButton.classList.add('newTaskBtn');
     newTaskButton.id = 'newTaskBtn';
-    newTaskButton.addEventListener('click', () => createTaskCard());
-    // newTaskButton.addEventListener('click', saveFormsToLocalStorage);
+    newTaskButton.addEventListener('click', () => {
+        createTaskCard();
+        saveTasksToLocalStorage(myTaskLibrary);
+    });
     pageContent.appendChild(newTaskButton);
 
     const taskArea = document.createElement('div');
     taskArea.classList.add('taskArea');
     taskArea.id = 'taskArea';
-
-
-
-
-
-
-    let placeholder = null;
-
-    taskArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        const afterElement = getDragAfterElement(taskArea, event.clientY);
-        const dragging = document.querySelector('.dragging');
-        if (afterElement == null) {
-            taskArea.appendChild(dragging);
-        } else {
-            taskArea.insertBefore(dragging, afterElement);
-        }
-    });
-
-    taskArea.addEventListener('dragenter', (event) => {
-        if (!placeholder) {
-            placeholder = document.createElement('div');
-            placeholder.classList.add('placeholder');
-        }
-        const afterElement = getDragAfterElement(taskArea, event.clientY);
-        if (afterElement == null) {
-            taskArea.appendChild(placeholder);
-        } else {
-            taskArea.insertBefore(placeholder, afterElement);
-        }
-    });
-
-    taskArea.addEventListener('dragleave', () => {
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
-    taskArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const dragging = document.querySelector('.dragging');
-        if (dragging) {
-            taskArea.insertBefore(dragging, placeholder);
-        }
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
     pageContent.appendChild(taskArea);
-
-
-
-
-
 
     // Note Bar Elements
     const noteBar = document.createElement('div');
@@ -170,7 +71,6 @@ const createTodoHomePage = () => {
     noteHeadline.textContent = 'Take Some Notes:';
     noteBar.appendChild(noteHeadline);
 
-    
     const newNoteButton = document.createElement('img');
     newNoteButton.src = '../image/plus-box.svg';
     newNoteButton.type = 'button';
@@ -178,83 +78,37 @@ const createTodoHomePage = () => {
     newNoteButton.width = 30;
     newNoteButton.classList.add('newNoteBtn');
     newNoteButton.id = 'newNoteBtn';
-    newNoteButton.addEventListener('click', () => createNoteCard());
-    // newNoteButton.addEventListener('click', saveFormsToLocalStorage);
+    newNoteButton.addEventListener('click', () => {
+        createNoteCard();
+        saveNotesToLocalStorage();
+    });
     noteBar.appendChild(newNoteButton);
 
     const noteArea = document.createElement('div');
     noteArea.classList.add('noteArea');
     noteArea.id = 'noteArea';
-
-    noteArea.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        const afterElement = getDragAfterElement(noteArea, event.clientY);
-        const dragging = document.querySelector('.dragging');
-        if (afterElement == null) {
-            noteArea.appendChild(dragging);
-        } else {
-            noteArea.insertBefore(dragging, afterElement);
-        }
-    });
-
-    noteArea.addEventListener('dragenter', (event) => {
-        if (!placeholder) {
-            placeholder = document.createElement('div');
-            placeholder.classList.add('placeholder');
-        }
-        const afterElement = getDragAfterElement(noteArea, event.clientY);
-        if (afterElement == null) {
-            noteArea.appendChild(placeholder);
-        } else {
-            noteArea.insertBefore(placeholder, afterElement);
-        }
-    });
-
-    noteArea.addEventListener('dragleave', () => {
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
-    noteArea.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const dragging = document.querySelector('.dragging');
-        if (dragging) {
-            noteArea.insertBefore(dragging, placeholder);
-        }
-        if (placeholder) {
-            placeholder.remove();
-        }
-    });
-
     noteBar.appendChild(noteArea);
-
-
-
-
 
     // Append side bar, page content, and note bar to content
     content.appendChild(sideBar);
     content.appendChild(pageContent);
     content.appendChild(noteBar);
-
-    //  tasks and forms from local storage
-   
+    
+    // Load and render tasks from local storage
+    myTaskLibrary = loadTasksFromLocalStorage();
     renderTasks();
-};
 
-const getDragAfterElement = (container, y) => {
-    const draggableElements = [...container.querySelectorAll('.newTaskForm:not(.dragging)')];
+    // Load and render projects from local storage
+    const projects = loadProjectsFromLocalStorage();
+    projects.forEach(project => {
+        createProjCard(project.title);
+    });
 
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child };
-        } else {
-            return closest;
-        }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
+    // Load and render notes from local storage
+    const notes = loadNotesFromLocalStorage();
+    notes.forEach(note => {
+        createNoteCard(note.title);
+    });
 };
 
 export default createTodoHomePage;

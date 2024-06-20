@@ -1,26 +1,12 @@
-import { addTaskToLibrary, renderTasks } from './plusTask';
+// projCard.js
 
-// Function to populate note area
-const populateNoteArea = (titleValue) => {
-    const noteArea = document.getElementById('noteArea');
-    if (noteArea) {
-        noteArea.innerHTML = '';
-        const note = document.createElement('div');
-        // note.textContent = `Notes for ${titleValue}`;
-        noteArea.appendChild(note);
-    } else {
-        console.error("Element with id 'noteArea' not found.");
-    }
-};
+import { saveProjectsToLocalStorage } from './saveLoad';
 
-const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
+const createProjCard = (titleValue = '') => {
     const form = document.createElement('form');
     form.classList.add('newProjForm');
     form.id = 'newProjForm';
     form.draggable = true;
-    if (completeValue) {
-        form.classList.add('completed');
-    }
 
     form.addEventListener('dragstart', (event) => {
         event.dataTransfer.setData('text/plain', null);
@@ -46,7 +32,6 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
     remove.type = 'button';
     remove.height = 20;
     remove.width = 20;
-    remove.textContent = 'Remove';
     remove.id = 'removeProjBtn';
     form.appendChild(remove);
 
@@ -55,7 +40,7 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         const confirmed = confirm('Are you sure you want to remove this project?');
         if (confirmed) {
             form.remove();
-            // saveFormsToLocalStorage();
+            saveProjectsToLocalStorage();
         }
     });
 
@@ -66,12 +51,22 @@ const createProjCard = (titleValue = '', descriptionValue = '', dateValue = '', 
         console.error("Element with id 'projArea' not found.");
     }
 
-    // saveFormsToLocalStorage();
+    saveProjectsToLocalStorage();
 };
 
 const populateTaskArea = (titleValue) => {
     renderTasks(titleValue);
 };
 
-export { createProjCard };
+const populateNoteArea = (titleValue) => {
+    const noteArea = document.getElementById('noteArea');
+    if (noteArea) {
+        noteArea.innerHTML = '';
+        const note = document.createElement('div');
+        noteArea.appendChild(note);
+    } else {
+        console.error("Element with id 'noteArea' not found.");
+    }
+};
 
+export { createProjCard };
