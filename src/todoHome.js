@@ -1,5 +1,4 @@
 import { createTaskCard } from './taskCard';
-import { renderTasks, addTaskToLibrary, myTaskLibrary } from './plusTask';
 import { createNoteCard } from './noteCard';
 import { createProjCard } from './projCard';
 import { loadTasksFromLocalStorage, saveTasksToLocalStorage, loadProjectsFromLocalStorage, saveProjectsToLocalStorage, loadNotesFromLocalStorage, saveNotesToLocalStorage } from './saveLoad';
@@ -54,7 +53,7 @@ const createTodoHomePage = () => {
     newTaskButton.id = 'newTaskBtn';
     newTaskButton.addEventListener('click', () => {
         createTaskCard();
-        saveTasksToLocalStorage(myTaskLibrary);
+        saveTasksToLocalStorage();
     });
     pageContent.appendChild(newTaskButton);
 
@@ -93,10 +92,12 @@ const createTodoHomePage = () => {
     content.appendChild(sideBar);
     content.appendChild(pageContent);
     content.appendChild(noteBar);
-    
+
     // Load and render tasks from local storage
-    myTaskLibrary = loadTasksFromLocalStorage();
-    renderTasks();
+    const tasks = loadTasksFromLocalStorage();
+    tasks.forEach(task => {
+        createTaskCard(task.title, task.date);  // Pass date value
+    });
 
     // Load and render projects from local storage
     const projects = loadProjectsFromLocalStorage();

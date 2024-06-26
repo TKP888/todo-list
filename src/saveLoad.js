@@ -1,6 +1,8 @@
-let myTaskLibrary = [];
-
-function saveTasksToLocalStorage(tasks) {
+function saveTasksToLocalStorage() {
+    const tasks = [...document.querySelectorAll('.newTaskForm')].map(form => ({
+        title: form.querySelector('#title').value,
+        date: form.querySelector('#date').value  // Save the date value
+    }));
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 

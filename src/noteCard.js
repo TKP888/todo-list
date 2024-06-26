@@ -1,63 +1,64 @@
-// noteCard.js
+// // noteCard.js
 
-import { saveNotesToLocalStorage } from './saveLoad';
-import { addTaskToLibrary } from './plusTask';
+// import { saveNotesToLocalStorage } from './saveLoad';
 
-const createNoteCard = (titleValue = '', descriptionValue = '', dateValue = '', completeValue = false) => {
-    const form = document.createElement('form');
-    form.classList.add('newNoteForm');
-    form.id = 'newNoteForm';
-    form.draggable = true;
-    if (completeValue) {
-        form.classList.add('completed');
-    }
 
-    form.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData('text/plain', null);
-        form.classList.add('dragging');
-    });
+// const createNoteCard = (titleValue = '') => {
+//     const form = document.createElement('form');
+//     form.classList.add('newNoteForm');
+//     form.id = 'newNoteForm';
+//     form.draggable = true;
+// }
+//     // if (completeValue) {
+//     //     form.classList.add('completed');
+//     // }
 
-    form.addEventListener('dragend', () => {
-        form.classList.remove('dragging');
-    });
+//     // form.addEventListener('dragstart', (event) => {
+//     //     event.dataTransfer.setData('text/plain', null);
+//     //     form.classList.add('dragging');
+//     // });
 
-    const title = document.createElement('textarea');
-    title.id = 'title';
-    title.rows = 7;
-    title.cols = 24;
-    title.value = titleValue;
-    form.appendChild(title);
+//     // form.addEventListener('dragend', () => {
+//     //     form.classList.remove('dragging');
+//     // });
 
-    const remove = document.createElement('img');
-    remove.src = '../image/close-circle-outline.svg';
-    remove.type = 'button';
-    remove.height = 20;
-    remove.width = 20;
-    remove.id = 'removeNoteBtn';
-    form.appendChild(remove);
+//     const title = document.createElement('textarea');
+//     title.id = 'title';
+//     title.rows = 7;
+//     title.cols = 24;
+//     title.value = titleValue;
+//     form.appendChild(title);
 
-    remove.addEventListener('click', (event) => {
-        event.preventDefault();
-        const confirmed = confirm('Are you sure you want to remove this note?');
-        if (confirmed) {
-            form.remove();
-            saveNotesToLocalStorage();
-        }
-    });
+//     const remove = document.createElement('img');
+//     remove.src = '../image/close-circle-outline.svg';
+//     remove.type = 'button';
+//     remove.height = 20;
+//     remove.width = 20;
+//     remove.id = 'removeNoteBtn';
+//     form.appendChild(remove);
 
-    const noteArea = document.getElementById('noteArea');
-    if (noteArea) {
-        noteArea.appendChild(form);
-    } else {
-        console.error("Element with id 'noteArea' not found.");
-    }
+//     remove.addEventListener('click', (event) => {
+//         event.preventDefault();
+//         const confirmed = confirm('Are you sure you want to remove this note?');
+//         if (confirmed) {
+//             form.remove();
+//             saveNotesToLocalStorage();
+//         }
+//     });
 
-    // Add the task to the library if note details are provided
-    if (titleValue !== '' || descriptionValue !== '' || dateValue !== '') {
-        addTaskToLibrary(titleValue, descriptionValue, dateValue, completeValue);
-    }
+//     // const noteArea = document.getElementById('noteArea');
+//     // if (noteArea) {
+//     //     noteArea.appendChild(form);
+//     // } else {
+//     //     console.error("Element with id 'noteArea' not found.");
+//     // }
 
-    saveNotesToLocalStorage();
-};
+//     // // Add the task to the library if note details are provided
+//     // if (titleValue !== '' || descriptionValue !== '' || dateValue !== '') {
+//     //     addTaskToLibrary();
+// {
 
-export { createNoteCard };
+//     saveNotesToLocalStorage();
+// };
+
+// export { createNoteCard };

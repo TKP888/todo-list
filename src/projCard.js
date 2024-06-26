@@ -8,20 +8,6 @@ const createProjCard = (titleValue = '') => {
     form.id = 'newProjForm';
     form.draggable = true;
 
-    form.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData('text/plain', null);
-        form.classList.add('dragging');
-    });
-
-    form.addEventListener('dragend', () => {
-        form.classList.remove('dragging');
-    });
-
-    form.addEventListener('click', () => {
-        populateTaskArea(titleValue);
-        populateNoteArea(titleValue);
-    });
-
     const title = document.createElement('input');
     title.id = 'title';
     title.value = titleValue;
@@ -37,8 +23,7 @@ const createProjCard = (titleValue = '') => {
 
     remove.addEventListener('click', (event) => {
         event.preventDefault();
-        const confirmed = confirm('Are you sure you want to remove this project?');
-        if (confirmed) {
+        if (confirm('Are you sure you want to remove this project?')) {
             form.remove();
             saveProjectsToLocalStorage();
         }
@@ -54,19 +39,19 @@ const createProjCard = (titleValue = '') => {
     saveProjectsToLocalStorage();
 };
 
-const populateTaskArea = (titleValue) => {
-    renderTasks(titleValue);
-};
+// const populateTaskArea = (titleValue) => {
+//     renderTasks(titleValue);
+// };
 
-const populateNoteArea = (titleValue) => {
-    const noteArea = document.getElementById('noteArea');
-    if (noteArea) {
-        noteArea.innerHTML = '';
-        const note = document.createElement('div');
-        noteArea.appendChild(note);
-    } else {
-        console.error("Element with id 'noteArea' not found.");
-    }
-};
+// const populateNoteArea = (titleValue) => {
+//     const noteArea = document.getElementById('noteArea');
+//     if (noteArea) {
+//         noteArea.innerHTML = '';
+//         const note = document.createElement('div');
+//         noteArea.appendChild(note);
+//     } else {
+//         console.error("Element with id 'noteArea' not found.");
+//     }
+// };
 
 export { createProjCard };
