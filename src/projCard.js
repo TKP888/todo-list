@@ -13,6 +13,10 @@ const createProjCard = (titleValue = '') => {
     title.value = titleValue;
     form.appendChild(title);
 
+    title.addEventListener('input', () => {
+        saveProjectsToLocalStorage();
+    });
+
     const remove = document.createElement('img');
     remove.src = '../image/close-circle-outline.svg';
     remove.type = 'button';
@@ -39,19 +43,6 @@ const createProjCard = (titleValue = '') => {
     saveProjectsToLocalStorage();
 };
 
-// const populateTaskArea = (titleValue) => {
-//     renderTasks(titleValue);
-// };
 
-// const populateNoteArea = (titleValue) => {
-//     const noteArea = document.getElementById('noteArea');
-//     if (noteArea) {
-//         noteArea.innerHTML = '';
-//         const note = document.createElement('div');
-//         noteArea.appendChild(note);
-//     } else {
-//         console.error("Element with id 'noteArea' not found.");
-//     }
-// };
 
 export { createProjCard };
