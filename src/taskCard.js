@@ -23,7 +23,7 @@ const createTaskCard = (titleValue = '', dateValue = '', priorityValue = '', com
     priority.id = 'priority';
     priority.required = true;
     priority.innerHTML = `
-        <option value="">Select/Choose</option>
+        <option value=""></option>
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
@@ -31,9 +31,30 @@ const createTaskCard = (titleValue = '', dateValue = '', priorityValue = '', com
     priority.value = priorityValue;
     form.appendChild(priority);
 
+    const setPriorityBorderColor = () => {
+        switch (priority.value) {
+            case 'low':
+                form.style.borderLeftColor = '#35BD1D';
+                break;
+            case 'medium':
+                form.style.borderLeftColor = '#F9DE1E';
+                break;
+            case 'high':
+                form.style.borderLeftColor = '#DB0E0E';
+                break;
+            default:
+                form.style.borderLeftColor = 'gray';
+        }
+    };
+
+    setPriorityBorderColor();
+
     title.addEventListener('input', saveTasksToLocalStorage);
     date.addEventListener('input', saveTasksToLocalStorage);
-    priority.addEventListener('change', saveTasksToLocalStorage);
+    priority.addEventListener('change', () => {
+        setPriorityBorderColor();
+        saveTasksToLocalStorage();
+    });
 
     const completeBtn = document.createElement('img');
     completeBtn.src = '../image/check.svg';

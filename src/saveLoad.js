@@ -1,3 +1,20 @@
+
+// Save projects to local storage
+function saveProjectsToLocalStorage() {
+    const projects = [...document.querySelectorAll('.newProjForm')].map(form => ({
+        title: form.querySelector('#title').value,
+    }));
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+// Load projects from local storage
+function loadProjectsFromLocalStorage() {
+    const projects = localStorage.getItem('projects');
+    return projects ? JSON.parse(projects) : [];
+}
+
+
+
 // Save tasks to local storage
 function saveTasksToLocalStorage() {
     const tasks = [...document.querySelectorAll('.newTaskForm')].map(form => ({
@@ -15,19 +32,7 @@ function loadTasksFromLocalStorage() {
     return tasks ? JSON.parse(tasks) : [];
 }
 
-// Save projects to local storage
-function saveProjectsToLocalStorage() {
-    const projects = [...document.querySelectorAll('.newProjForm')].map(form => ({
-        title: form.querySelector('#title').value,
-    }));
-    localStorage.setItem('projects', JSON.stringify(projects));
-}
 
-// Load projects from local storage
-function loadProjectsFromLocalStorage() {
-    const projects = localStorage.getItem('projects');
-    return projects ? JSON.parse(projects) : [];
-}
 
 // Save notes to local storage
 function saveNotesToLocalStorage() {
@@ -44,3 +49,4 @@ function loadNotesFromLocalStorage() {
 }
 
 export { saveTasksToLocalStorage, loadTasksFromLocalStorage, saveProjectsToLocalStorage, loadProjectsFromLocalStorage, saveNotesToLocalStorage, loadNotesFromLocalStorage };
+

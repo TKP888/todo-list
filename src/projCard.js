@@ -1,6 +1,7 @@
 // projCard.js
 
-import { saveProjectsToLocalStorage } from './saveLoad';
+import { saveProjectsToLocalStorage, saveTasksToLocalStorage } from './saveLoad';
+import { createTaskCard } from './taskCard';
 
 const createProjCard = (titleValue = '') => {
     const form = document.createElement('form');
@@ -16,6 +17,19 @@ const createProjCard = (titleValue = '') => {
     title.addEventListener('input', () => {
         saveProjectsToLocalStorage();
     });
+
+    const newTaskButton = document.createElement('img');
+    newTaskButton.src = '../image/plus-box.svg';
+    newTaskButton.type = 'button';
+    newTaskButton.height = 20;
+    newTaskButton.width = 20;
+    newTaskButton.classList.add('newTaskBtn');
+    newTaskButton.id = 'newTaskBtn';
+    newTaskButton.addEventListener('click', () => {
+        createTaskCard();
+        saveTasksToLocalStorage();
+    });
+    form.appendChild(newTaskButton);
 
     const remove = document.createElement('img');
     remove.src = '../image/close-circle-outline.svg';
@@ -42,6 +56,7 @@ const createProjCard = (titleValue = '') => {
 
     saveProjectsToLocalStorage();
 };
+
 
 
 

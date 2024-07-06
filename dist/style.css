@@ -62,15 +62,18 @@ padding: 25px;
     margin-top: 10px;
     background-color: #0369a1;
     padding: 15px;
-    border-left: 25px solid #be123c; /* Initially transparent */
+
+    border-left: 25px solid rgba(128, 128, 128, 0.2);    /* Initially set to a neutral color */
     transition: transform 0.1s ease, opacity 0.2s ease;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
+
 .newTaskForm.completed {
-    background-color: grey !important; /* Greys out the card */
+    background-color: rgb(128, 128, 128) !important; /* Greys out the card */
     color: white !important; /* Ensure the text is readable */
     text-decoration: line-through; /* Add a line-through to indicate completion */
+    opacity: 0.5; /* Reduces opacity by 50% */  
 }
 
 #completeBtn:hover {
@@ -148,7 +151,6 @@ button {
 }
 #newProjBtn,
 #newNoteBtn,
-#newTaskBtn,
 #completeBtn,
 #removeBtn,
 #removeProjBtn,
@@ -156,6 +158,22 @@ button {
     margin-right: 10px;
     filter: invert(100%);
 }
+
+#newTaskBtn{
+    margin-right: 10px;
+    margin-top: 10px;
+    filter: invert(100%);
+
+}
+
+
+#newTaskBtn:hover{
+    margin-right: 10px;
+    margin-top: 10px;
+    filter: invert(75%);
+    transition-duration: 0.2s;
+}
+
 
 #removeProjBtn,
 #removeNoteBtn {
@@ -167,7 +185,7 @@ button {
 
 #newProjBtn:hover,
 #newNoteBtn:hover,
-#newTaskBtn:hover,
+
 #completeBtn:hover,
 #removeBtn:hover,
 #removeNoteBtn:hover,

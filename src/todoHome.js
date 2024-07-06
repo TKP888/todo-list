@@ -41,21 +41,10 @@ const createTodoHomePage = () => {
     pageContent.classList.add('page-content');
 
     const headline = document.createElement('h3');
-    headline.textContent = 'Here are your tasks for today:';
+    headline.textContent = 'Here are your tasks:';
     pageContent.appendChild(headline);
 
-    const newTaskButton = document.createElement('img');
-    newTaskButton.src = '../image/plus-box.svg';
-    newTaskButton.type = 'button';
-    newTaskButton.height = 30;
-    newTaskButton.width = 30;
-    newTaskButton.classList.add('newTaskBtn');
-    newTaskButton.id = 'newTaskBtn';
-    newTaskButton.addEventListener('click', () => {
-        createTaskCard();
-        saveTasksToLocalStorage();
-    });
-    pageContent.appendChild(newTaskButton);
+
 
     const taskArea = document.createElement('div');
     taskArea.classList.add('taskArea');
