@@ -23,7 +23,7 @@
               type="text"
               class="new list"
               data-new-list-input
-              placeholder="new project"
+              placeholder="new list name"
               aria-label="new list name"
             />
             <button class="btn create" aria-label="create new list">+</button>
@@ -38,7 +38,18 @@
     
           <div class="todo-body">
             <div class="tasks" data-tasks>
-              <div class="task"></div>
+              <div class="task">
+                <input 
+                  type="checkbox"
+                  id="task-1"
+                />
+                <label for="task-1">
+                  <span class="custom-checkbox"></span>
+                </label>
+              </div>
+      
+         
+            </div>
     
             <div class="new-task-creator">
                 <form action="" data-new-task-form>
