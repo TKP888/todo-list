@@ -25,7 +25,7 @@ listsContainer.addEventListener('click', e => {
         selectedListId = e.target.dataset.listId;
         saveAndRender();
     }
-})
+}) 
 
 tasksContainer.addEventListener('click', e => {
     if(e.target.tagName.toLowerCase() === 'input') {
