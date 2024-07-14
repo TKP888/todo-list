@@ -1,4 +1,4 @@
-import pageLoad from './pageLoad';
+const listsContainer = document.querySelector('[data-lists]');
 
-// Load page
-pageLoad();
+
+let lists = [];

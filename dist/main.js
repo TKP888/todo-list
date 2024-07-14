@@ -1,1 +1,148 @@
-(()=>{var e={928:()=>{}},t={};function n(o){var r=t[o];if(void 0!==r)return r.exports;var a=t[o]={exports:{}};return e[o](a,a.exports,n),a.exports}(()=>{"use strict";function e(){const e=[...document.querySelectorAll(".newProjForm")].map((e=>({title:e.querySelector("#title").value})));localStorage.setItem("projects",JSON.stringify(e))}function t(){const e=[...document.querySelectorAll(".newTaskForm")].map((e=>({title:e.querySelector("#title").value,date:e.querySelector("#date").value,priority:e.querySelector("#priority").value,complete:e.classList.contains("completed")})));localStorage.setItem("tasks",JSON.stringify(e))}function o(){const e=localStorage.getItem("tasks");return e?JSON.parse(e):[]}const r=(e="",n="",o="",r=!1)=>{const a=document.createElement("form");a.classList.add("newTaskForm"),r&&a.classList.add("completed");const c=document.createElement("input");c.id="title",c.type="text",c.value=e,a.appendChild(c);const d=document.createElement("input");d.id="date",d.type="date",d.value=n,a.appendChild(d);const i=document.createElement("select");i.id="priority",i.required=!0,i.innerHTML='\n        <option value=""></option>\n        <option value="low">Low</option>\n        <option value="medium">Medium</option>\n        <option value="high">High</option>\n    ',i.value=o,a.appendChild(i);const s=()=>{switch(i.value){case"low":a.style.borderLeftColor="#35BD1D";break;case"medium":a.style.borderLeftColor="#F9DE1E";break;case"high":a.style.borderLeftColor="#DB0E0E";break;default:a.style.borderLeftColor="gray"}};s(),c.addEventListener("input",t),d.addEventListener("input",t),i.addEventListener("change",(()=>{s(),t()}));const l=document.createElement("img");l.src="../image/check.svg",l.type="button",l.height=20,l.width=20,l.id="completeBtn",a.appendChild(l),l.addEventListener("click",(e=>{e.preventDefault(),a.classList.toggle("completed"),t()}));const m=document.createElement("img");m.src="../image/close-circle-outline.svg",m.type="button",m.height=20,m.width=20,m.id="removeBtn",a.appendChild(m),m.addEventListener("click",(e=>{e.preventDefault(),confirm("Are you sure you want to remove this task?")&&(a.remove(),t())}));const u=document.getElementById("taskArea");u?u.appendChild(a):console.error("Element with id 'taskArea' not found.")};window.addEventListener("DOMContentLoaded",(()=>{const e=document.getElementById("taskArea");e&&(e.innerHTML=""),o().forEach((e=>{r(e.title,e.date,e.priority,e.complete)}))}));var a=n(928);const c=(n="")=>{const o=document.createElement("form");o.classList.add("newProjForm"),o.id="newProjForm",o.draggable=!0;const a=document.createElement("input");a.id="title",a.value=n,o.appendChild(a),a.addEventListener("input",(()=>{e()}));const c=document.createElement("img");c.src="../image/plus-box.svg",c.type="button",c.height=20,c.width=20,c.classList.add("newTaskBtn"),c.id="newTaskBtn",c.addEventListener("click",(()=>{r(),t()})),o.appendChild(c);const d=document.createElement("img");d.src="../image/close-circle-outline.svg",d.type="button",d.height=20,d.width=20,d.id="removeProjBtn",o.appendChild(d),d.addEventListener("click",(t=>{t.preventDefault(),confirm("Are you sure you want to remove this project?")&&(o.remove(),e())}));const i=document.getElementById("projArea");i?i.appendChild(o):console.error("Element with id 'projArea' not found."),e()};(()=>{const t=document.querySelector("#content");if(!t)return void console.error("Element with id 'content' not found.");const n=document.createElement("div");n.classList.add("side-content");const d=document.createElement("h3");d.textContent="Projects:",n.appendChild(d);const i=document.createElement("img");i.src="../image/plus-box.svg",i.type="button",i.height=30,i.width=30,i.classList.add("newProjBtn"),i.id="newProjBtn",i.addEventListener("click",(()=>{c(),e()})),n.appendChild(i);const s=document.createElement("div");s.classList.add("projArea"),s.id="projArea",n.appendChild(s);const l=document.createElement("div");l.classList.add("page-content");const m=document.createElement("h3");m.textContent="Here are your tasks:",l.appendChild(m);const u=document.createElement("div");u.classList.add("taskArea"),u.id="taskArea",l.appendChild(u);const p=document.createElement("div");p.classList.add("note-content");const h=document.createElement("h3");h.textContent="Take Some Notes:",p.appendChild(h);const v=document.createElement("img");v.src="../image/plus-box.svg",v.type="button",v.height=30,v.width=30,v.classList.add("newNoteBtn"),v.id="newNoteBtn",v.addEventListener("click",(()=>{(0,a.createNoteCard)(),function(){const e=[...document.querySelectorAll(".newNoteForm")].map((e=>({title:e.querySelector("#title").value})));localStorage.setItem("notes",JSON.stringify(e))}()})),p.appendChild(v);const g=document.createElement("div");g.classList.add("noteArea"),g.id="noteArea",p.appendChild(g),t.appendChild(n),t.appendChild(l),t.appendChild(p),o().forEach((e=>{r(e.title,e.date)})),function(){const e=localStorage.getItem("projects");return e?JSON.parse(e):[]}().forEach((e=>{c(e.title)})),function(){const e=localStorage.getItem("notes");return e?JSON.parse(e):[]}().forEach((e=>{(0,a.createNoteCard)(e.title)}))})()})()})();
+const listsContainer = document.querySelector('[data-lists]');
+const newListForm = document.querySelector('[data-new-list-form]');
+const newListInput = document.querySelector('[data-new-list-input]');
+const deleteListButton = document.querySelector('[data-delete-list-button]');
+
+const listDisplayContainer = document.querySelector('[data-list-display-container]');
+const listTitleElement = document.querySelector('[data-list-title]');
+const listCountElement = document.querySelector('[data-list-count]');
+const tasksContainer = document.querySelector('[data-tasks]');
+const taskTemplate = document.getElementById('task-template');
+
+const newTaskForm = document.querySelector('[data-new-task-form]');
+const newTaskInput = document.querySelector('[data-new-task-input]');
+const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]');
+
+const LOCAL_STORAGE_LIST_KEY = 'task.lists';
+const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId';
+
+let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [];
+let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
+
+
+listsContainer.addEventListener('click', e => {
+    if(e.target.tagName.toLowerCase() === 'li') {
+        selectedListId = e.target.dataset.listId;
+        saveAndRender();
+    }
+})
+
+tasksContainer.addEventListener('click', e => {
+    if(e.target.tagName.toLowerCase() === 'input') {
+        const selectedList = lists.find(list => list.id === selectedListId);
+        const selectedTask = selectedList.tasks.find(task => task.id === e.target.id);
+        selectedTask.complete = e.target.checked;
+        save();
+        renderTaskCount(selectedList);
+    }
+})
+
+
+deleteListButton.addEventListener('click', e => { 
+    lists = lists.filter(list => list.id !== selectedListId);
+    selectedListId = null;
+    saveAndRender();
+})
+
+newListForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const listName = newListInput.value;
+    if (listName === null || listName === '') return;
+    const list = createList(listName);
+    newListInput.value = null;
+    lists.push(list);
+    saveAndRender();
+})
+
+newTaskForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const taskName = newTaskInput.value;
+    if (taskName === null || taskName === '') return;
+    const task = createTask(taskName);
+    newTaskInput.value = null;
+   const selectedList = lists.find(list => list.id === selectedListId);
+   selectedList.tasks.push(task);
+    saveAndRender();
+})
+
+clearCompleteTasksButton.addEventListener('click', e => {
+    const selectedList = lists.find(list => list.id === selectedListId);
+    selectedList.tasks = selectedList.tasks.filter(task => !task.complete);
+    saveAndRender();
+})
+
+function createList(name) {
+    return {id: Date.now().toString(), name: name, tasks: []};
+}
+
+function createTask(name) {
+    return {id: Date.now().toString(), name: name, complete: false};
+}
+
+
+function saveAndRender(){
+    save();
+    render();
+}
+
+function save() {
+    localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists));
+    localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId);
+}     
+
+
+function render() {
+    clearElement(listsContainer);
+    renderLists();
+    const selectedList = lists.find(list => list.id === selectedListId);
+
+    if (selectedListId === null) {
+        listDisplayContainer.style.display = 'none';
+} else {
+listDisplayContainer.style.display = '';
+listTitleElement.innerText = selectedList.name;
+renderTaskCount(selectedList);
+clearElement(tasksContainer);
+renderTasks(selectedList);
+}};
+
+function renderTasks(selectedList) {
+    selectedList.tasks.forEach(task => {
+        const taskElement = document.importNode(taskTemplate.content, true);
+        const checkbox = taskElement.querySelector('input');
+        checkbox.id = task.id;
+        checkbox.checked = task.complete;
+        const label = taskElement.querySelector('label');
+        label.htmlFor = task.id;
+        label.append(task.name);
+        tasksContainer.appendChild(taskElement);
+    })}
+
+
+function renderTaskCount(selectedList) {
+    const incompleteTaskCount = selectedList.tasks.filter(task => !task.complete).length;
+    const taskString = incompleteTaskCount === 1 ? "task" : "tasks";
+    listCountElement.innerText = `${incompleteTaskCount} ${taskString} remaining`;
+}
+
+function renderLists() {
+    lists.forEach(list => {
+        const listElement = document.createElement('li');
+        listElement.dataset.listId = list.id;
+        listElement.classList.add("list-name");
+        listElement.innerText = list.name;
+        if(list.id === selectedListId) {
+            listElement.classList.add('active-list');
+        }
+        listsContainer.appendChild(listElement);
+    });
+};
+
+
+function clearElement(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
+
+render();
